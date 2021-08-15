@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
+import * as itemsActions from "../../redux/contacts/items/items-actions";
 import { v4 as uuidv4 } from 'uuid';
 import s from './Form.module.css';
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleInputChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -19,12 +21,15 @@ const Form = ({ onSubmit }) => {
         return;
     }
   };
+  
+  const onSubmitContact = data => dispatch(itemsActions.addContact(data));
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ id: uuidv4(), name, number });
+    onSubmitContact({ id: uuidv4(), name, number });
     reset();
   };
+
 
   const reset = () => {
     setName('');
@@ -62,10 +67,6 @@ const Form = ({ onSubmit }) => {
       <button className={s.button} type="submit"></button>
     </form>
   );
-};
-
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Form;
