@@ -1,9 +1,11 @@
+import types from "./items-types";
+
 export const addContact = data => ({
-    type: 'contact/addContact',
+    type: types.ADD,
     payload: data
 });
 
 export const deleteContact = id => ({
-    type: 'contact/deleteContact',
+    type: types.DELETE,
     payload: id
 })

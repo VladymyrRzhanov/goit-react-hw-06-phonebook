@@ -5,7 +5,8 @@ import Section from '../Section';
 import ContactsList from '../ContactsList';
 import Filter from '../Filter';
 import { connect } from "react-redux";
-import * as actions from "../redux/actions";
+import * as itemsActions from "../../redux/contacts/items/items-actions";
+import * as filterActions from "../../redux/contacts/filter/filter-actions";
 import s from './App.module.css';
 
 const App = ({ items, onSubmit, onDelete, filter, onFilterName }) => {
@@ -78,9 +79,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(actions.addContact(data)),
-  onDelete: id => dispatch(actions.deleteContact(id)),
-  onFilterName: ({ target: { value } }) => dispatch(actions.filterContacts(value))
+  onSubmit: data => dispatch(itemsActions.addContact(data)),
+  onDelete: id => dispatch(itemsActions.deleteContact(id)),
+  onFilterName: ({ target: { value } }) => dispatch(filterActions.filterContacts(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
