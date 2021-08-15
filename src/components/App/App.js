@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 import s from './App.module.css';
 
-const App = ({items,onSubmit,onDelete,filter,onFilterName}) => {
+const App = ({ items, onSubmit, onDelete, filter, onFilterName }) => {
   // const [contacts, setContacts] = useState(
   //   () =>
   //     JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts,
