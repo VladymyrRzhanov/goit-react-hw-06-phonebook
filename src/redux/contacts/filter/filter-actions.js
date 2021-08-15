@@ -1,6 +1,3 @@
-import types from "./filter-types";
+import { createAction } from '@reduxjs/toolkit';
 
-export const filterContacts = value => ({
-    type: types.FILTER,
-    payload: value
-});
+export const filterContacts = createAction('contact/filterContact');

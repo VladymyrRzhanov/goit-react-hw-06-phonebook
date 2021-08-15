@@ -4,12 +4,15 @@ import Form from '../Form';
 import Section from '../Section';
 import ContactsList from '../ContactsList';
 import Filter from '../Filter';
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as itemsActions from "../../redux/contacts/items/items-actions";
 import * as filterActions from "../../redux/contacts/filter/filter-actions";
 import s from './App.module.css';
 
-const App = ({ items, onSubmit, onDelete, filter, onFilterName }) => {
+const App = () => {
+  const items = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
   // const [contacts, setContacts] = useState(
   //   () =>
   //     JSON.parse(window.localStorage.getItem('contacts')) ?? initialContacts,
@@ -41,22 +44,21 @@ const App = ({ items, onSubmit, onDelete, filter, onFilterName }) => {
     );
   };
 
-
   return (
     <>
       <Section>
         <h1 className={s.title}>Phonebook</h1>
-        <Form onSubmit={onSubmit} />
+        <Form onSubmit={(data) => dispatch(itemsActions.addContact(data))} />
       </Section>
       <Section>
         <h2 className={s.subtitle}>Contacts</h2>
         <Filter
           filter={filter}
-          onFilterName={onFilterName}
+          onFilterName={({ target: { value } }) => dispatch(filterActions.filterContacts(value))}
         />
         <ContactsList
           contacts={getFilterName()}
-          onDelete={onDelete}
+          onDelete={(id) => dispatch(itemsActions.deleteContact(id))}
         />
       </Section>
     </>
@@ -73,15 +75,4 @@ App.propTypes = {
   ),
 };
 
-const mapStateToProps = state => ({
-  items: state.contacts.items,
-  filter: state.contacts.filter
-})
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(itemsActions.addContact(data)),
-  onDelete: id => dispatch(itemsActions.deleteContact(id)),
-  onFilterName: ({ target: { value } }) => dispatch(filterActions.filterContacts(value))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
