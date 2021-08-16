@@ -4,7 +4,7 @@ import * as itemsActions from "../../redux/contacts/items/items-actions";
 import { v4 as uuidv4 } from 'uuid';
 import s from './Form.module.css';
 
-const Form = ({ onSubmit }) => {
+const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();

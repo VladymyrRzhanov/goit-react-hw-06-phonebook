@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import Form from '../Form';
 import Section from '../Section';
 import ContactsList from '../ContactsList';
